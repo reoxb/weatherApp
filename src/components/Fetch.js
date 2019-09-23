@@ -4,6 +4,7 @@ class App extends Component {
     state = {
         data: []
     };
+
     
     componentDidMount() {
         const url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${this.props.query}&format=json&origin=*&limit=1`;
@@ -15,6 +16,20 @@ class App extends Component {
                     data: result
                 })
             });
+    }
+
+    componentDidUpdate(prevProps) {
+        const url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${this.props.query}&format=json&origin=*&limit=1`;
+
+        if (prevProps.query !== this.props.query) {
+            fetch(url)
+                .then(result => result.json())
+                .then(result => {
+                    this.setState({
+                        data: result
+                    })
+                });
+        }
     }
 
     render() {

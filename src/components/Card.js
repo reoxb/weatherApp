@@ -10,13 +10,21 @@ class Card extends Component {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.query !== this.props.query) {
+            this.setState({
+                ...this.props
+            });
+        }
+    }
+
     render(){
         const {query} = this.state
 
         return (
             <div>
                 <h1>{query}</h1>
-                {/*<Fetch query={query}/>*/}
+                <Fetch query={query}/>
             </div>
         )
     }
